@@ -1,0 +1,56 @@
+*::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --cell-size: 140px;
+    --mark-size: calc(var(--cell-size) * .7)
+}
+
+body {
+    margin: 0;
+    background-color: #1A2A33;
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #1F3641;
+    border: 10px solid #1A2A33;
+    border-radius: 15px;
+    box-shadow: inset 0px -8px 0px #10212A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cell.x::before,
+.cell.x::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .25);
+    height: var(--mark-size);
+    background-color: #31C3BD;
+    border-radius: 3px;
+}
+
+.cell.x::before {
+    transform: rotate(135deg);
+}
+
+.cell.x::after {
+    transform: rotate(-135deg);
+}
