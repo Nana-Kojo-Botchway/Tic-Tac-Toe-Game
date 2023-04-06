@@ -6,6 +6,9 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
   <title>Frontend Mentor | Tic Tac Toe</title>
 </head>
 <body>
@@ -38,9 +41,16 @@
   Ties <!-- Ties score -->
   X (CPU) <!-- CPU score -->
 
+<div class="darken" id="darken">
+  <div game-win-function></div>
+</div>  
+
 <div class="winning-message" id="winningMessage">
   <div data-winning-message-text></div>
-  <button id="restartBtn">Restart</button>
+  <span id="small">oh no, you lost ...</span> <br>
+  <span id="big">circle takes the round</span> <br>
+  <button id="quitBtn">quit</button>
+  <button id="nextRoundBtn">next round</button>
 </div>  
   Oh no, you lost
   You won!

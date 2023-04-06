@@ -10,6 +10,7 @@
 body {
     margin: 0;
     background-color: #1A2A33;
+    font-family: 'Outfit', sans-serif;
 }
 
 .board {
@@ -108,4 +109,87 @@ body {
     width: calc(var(--mark-size) * .4);
     height: calc(var(--mark-size) * .4);
     background-color: #1F3641;
+}
+
+.darken {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .8)
+}
+
+.winning-message {
+    position: fixed;
+    top: 35%;
+    bottom: 35%;
+    left: 0;
+    right: 0;
+    background-color: #1F3641;
+}
+
+#small {
+    color: #DBE8ED;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#big {
+    color: #F2B137;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    font-family: 'Outfit', sans-serif;
+    font-style: normal;
+    color: #1a2a33;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#quitBtn {
+    background: #a8bfc9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px #6B8997;
+    border: 10px solid #a8bfc9;
+    margin: 0;
+  position: absolute;
+  top: 70%;
+  left: 39%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#nextRoundBtn {
+    background: #F2B137;
+    box-shadow: 0px 4px 0px #CC8B13;
+    border-radius: 10px;
+    border: 10px solid #F2B137;
+    margin: 0;
+  position: absolute;
+  left: 52%;
+  top: 70%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
