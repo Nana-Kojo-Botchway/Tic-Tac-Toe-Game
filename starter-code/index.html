@@ -15,18 +15,34 @@
 
   <!-- New game menu start -->
 
-  Pick player 1's mark
-  Remember: X goes first
 
-  New Game (vs CPU)
-  New Game (vs player)
+<div class="menu" id="menu">
+  <div class="icon">
+    <img src="/starter-code/assets/icon-x.svg" alt="x-icon">
+    <img src="/starter-code/assets/icon-o.svg" alt="o-icon">
+  </div>
+  <div class="big-shape">
+    <h3>Pick player 1's mark</h3>
+    <button id="x-shape">X</button>
+    <button id="o-shape">O</button>
+    <h4>Remember: X goes first</h4>
+
+    
+  </div>
+
+  <button id="solo">New Game (vs CPU)</button>
+  <button id="multiplayer">New Game (vs player)</button>
+</div>
+  
+  
+  
 
   <!-- New game menu end -->
 
   <!-- Game board start -->
-<div class="board circle" id="board">
-  <div class="cell x" data-cell></div>
-  <div class="cell circle" data-cell></div>
+<div class="board" id="board">
+  <div class="cell" data-cell></div>
+  <div class="cell" data-cell></div>
   <div class="cell" data-cell></div>
   <div class="cell" data-cell></div>
   <div class="cell" data-cell></div>
@@ -48,7 +64,7 @@
 <div class="winning-message" id="winningMessage">
   <div data-winning-message-text></div>
   <span id="small">oh no, you lost ...</span> <br>
-  <span id="big">circle takes the round</span> <br>
+  <span id="big">O takes the round</span> <br>
   <button id="quitBtn">quit</button>
   <button id="nextRoundBtn">next round</button>
 </div>  
