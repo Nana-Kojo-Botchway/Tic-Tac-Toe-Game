@@ -17,21 +17,21 @@
 
 
 <div class="menu" id="menu">
+
   <div class="icon">
     <img src="/starter-code/assets/icon-x.svg" alt="x-icon">
     <img src="/starter-code/assets/icon-o.svg" alt="o-icon">
   </div>
+
   <div class="big-shape">
     <h3>Pick player 1's mark</h3>
     <button id="x-shape">X</button>
     <button id="o-shape">O</button>
     <h4>Remember: X goes first</h4>
-
-    
   </div>
 
-  <button id="solo">New Game (vs CPU)</button>
-  <button id="multiplayer">New Game (vs player)</button>
+  <button id="solo"><a href="solo.html"> New Game (vs CPU) </a></button>
+  <button id="multiplayer"><a href="multiplayer.html"> New Game (vs player)</a></button>
 </div>
   
   
@@ -62,12 +62,14 @@
 </div>  
 
 <div class="winning-message" id="winningMessage">
+
   <div data-winning-message-text></div>
   <span id="small">oh no, you lost ...</span> <br>
   <span id="big">O takes the round</span> <br>
   <button id="quitBtn">quit</button>
   <button id="nextRoundBtn">next round</button>
-</div>  
+  
+</div>
   Oh no, you lost
   You won!
   Player <!-- 1/2 --> wins!
