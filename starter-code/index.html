@@ -14,8 +14,7 @@
 <body>
 
   <!-- New game menu start -->
-
-
+  
 <div class="menu" id="menu">
 
   <div class="icon">
@@ -33,60 +32,8 @@
   <button id="solo"><a href="solo.html"> New Game (vs CPU) </a></button>
   <button id="multiplayer"><a href="multiplayer.html"> New Game (vs player)</a></button>
 </div>
-  
-  
-  
 
   <!-- New game menu end -->
-
-  <!-- Game board start -->
-<div class="board" id="board">
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-  <div class="cell" data-cell></div>
-</div>
-  <!-- x/o icon --> turn
-
-  X (You) <!-- Your score -->
-  Ties <!-- Ties score -->
-  X (CPU) <!-- CPU score -->
-
-<div class="darken" id="darken">
-  <div game-win-function></div>
-</div>  
-
-<div class="winning-message" id="winningMessage">
-
-  <div data-winning-message-text></div>
-  <span id="small">oh no, you lost ...</span> <br>
-  <span id="big">O takes the round</span> <br>
-  <button id="quitBtn">quit</button>
-  <button id="nextRoundBtn">next round</button>
-  
-</div>
-  Oh no, you lost
-  You won!
-  Player <!-- 1/2 --> wins!
-
-  <!-- x/o icon --> takes the round
-  Round tied
-  Restart game?
-
-  Quit
-  Next round
-  No, cancel
-  Yes, restart
-
-  <!-- Game board end -->
-
-
-
   <script src="main.js"></script>
 </body>
 </html>
