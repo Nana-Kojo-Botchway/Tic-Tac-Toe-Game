@@ -6,6 +6,8 @@
     --cell-size: 140px;
     --mark-size: calc(var(--cell-size) * .7);
     --shape-size: 460px;
+    --winning-blocks-x: #65e9e4;
+    --winning-blocks-o: #ffc860;
 }
 
 body {
