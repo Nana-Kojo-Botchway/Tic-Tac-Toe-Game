@@ -13,7 +13,11 @@ function updateScoreboard() {
 
 function updateTurnIndicator() {
   const turnText = document.getElementById("turnText");
-  turnText.innerHTML = `${turn} Turn`;
+  if (turn === "X") {
+    turnText.innerHTML = `<span style="font-size: 24px; font-weight: bold; color: #65E9E4;">X</span> Turn`;
+  } else {
+    turnText.innerHTML = `<span style="font-size: 24px; font-weight: bold; color: #FFC860;">O</span> Turn`;
+  }
 }
 
 function checkWin() {
@@ -68,6 +72,7 @@ function endGame(result) {
     }
     updateScoreboard();
   }
+
 // redo button functionality
 const redoButton = document.getElementById("redo");
 const restartMessage = document.getElementById("restartMessage");

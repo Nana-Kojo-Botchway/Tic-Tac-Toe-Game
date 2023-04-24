@@ -12,9 +12,13 @@ function updateScoreboard() {
 }
 
 function updateTurnIndicator() {
-  const turnText = document.getElementById("turnText");
-  turnText.innerHTML = `${turn} Turn`;
-}
+    const turnText = document.getElementById("turnText");
+    if (turn === "X") {
+      turnText.innerHTML = `<span style="font-size: 24px; font-weight: bold; color: #65E9E4;">X</span> Turn`;
+    } else {
+      turnText.innerHTML = `<span style="font-size: 24px; font-weight: bold; color: #FFC860;">O</span> Turn`;
+    }
+  }
 
 function checkWin() {
   const winningCombinations = [

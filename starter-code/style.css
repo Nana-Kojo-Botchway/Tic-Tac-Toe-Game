@@ -381,7 +381,7 @@ a, a:visited, a:hover, a:active {
     display: none;
     position: fixed;
     top: 35%;
-    bottom: 35%;
+    bottom: 30%;
     left: 0;
     right: 0;
     background-color: #1F3641;
@@ -444,7 +444,7 @@ a, a:visited, a:hover, a:active {
     border: 10px solid #a8bfc9;
     margin: 0;
     position: absolute;
-    top: 70%;
+    top: 65%;
     left: 41%;
     width: 76px;
     text-transform: uppercase;
@@ -469,7 +469,7 @@ a, a:visited, a:hover, a:active {
     margin: 0;
     position: absolute;
     left: 48%;
-    top: 70%;
+    top: 65%;
     width: 146px;
     text-transform: uppercase;
     cursor: pointer;
@@ -493,7 +493,7 @@ a, a:visited, a:hover, a:active {
     display: none;
     position: fixed;
     top: 35%;
-    bottom: 35%;
+    bottom: 30%;
     left: 0;
     right: 0;
     background-color: #1F3641;
@@ -519,7 +519,7 @@ a, a:visited, a:hover, a:active {
     display: none;
     position: fixed;
     top: 40%;
-    bottom: 30%;
+    bottom: 25%;
     left: 0;
     right: 0;
     background-color: #1F3641;
@@ -543,7 +543,7 @@ a, a:visited, a:hover, a:active {
     border: 10px solid #a8bfc9;
     margin: 0;
     position: absolute;
-    top: 70%;
+    top: 55%;
     left: 38%;
     width: 146px;
     text-transform: uppercase;
@@ -559,7 +559,6 @@ a, a:visited, a:hover, a:active {
     text-align: center;
     letter-spacing: 1px;
     color: #1A2A33;
-
     background: #F2B137;
     box-shadow: 0px 4px 0px #CC8B13;
     border-radius: 10px;
@@ -567,7 +566,7 @@ a, a:visited, a:hover, a:active {
     margin: 0;
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 55%;
     width: 157px;
     text-transform: uppercase;
     cursor: pointer;
@@ -629,7 +628,16 @@ a, a:visited, a:hover, a:active {
   text-align: center;
   letter-spacing: 2.5px;
   text-transform: uppercase;
+  position: inherit;
+  top: 44%;
+  left: 36%;
 }
+
+#winIcon, #winIcon1 {
+    width: 4.3%;
+    position: absolute;
+    left: 29%;
+  }
 
 .board.show {
   display: grid;
@@ -661,12 +669,13 @@ a, a:visited, a:hover, a:active {
   }
 
   .winning-cell.x {
-    background-color: #31C3BD;
+    background-color: rgba(49, 195, 189, 0.5);
   }
   .winning-cell.o {
-    background-color: #F2B137;
+    background-color: rgba(242, 177, 55, 0.5);
   }
 
+  
   /* For mobile devices */
 @media only screen and (max-width: 600px) {
   :root {
@@ -762,19 +771,37 @@ a, a:visited, a:hover, a:active {
     height: 64px;
     left: 68.5%;
   }
-  .winning-message, .winning-message-2, .tie-message {
+  .winning-message, .winning-message-2, .tie-message, .restart-message {
     position: fixed;
     top: 35%;
-    bottom: 32%;
+    bottom: 38%;
   }
-  #big, #big-2, #big-3, #big-4 {
+  #big, #big-2 {
     position: inherit;
     font-weight: 700;
     font-size: 24px;
     line-height: 30px;
     letter-spacing: 1.5px;
-    top: 46%;
-    left: 15%;
+    top: 44%;
+    left: 18%;
+  }
+  #big-3 {
+    position: inherit;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 1.5px;
+    top: 43%;
+    left: 30%;
+  }
+  #big-4 {
+    position: inherit;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 1.5px;
+    top: 42%;;
+    left: 19%;
   }
   #small{
     position: relative;
@@ -786,7 +813,20 @@ a, a:visited, a:hover, a:active {
   }
   #nextRoundBtn1, #nextRoundBtn2, #nextRoundBtn3 {
     top: 60%;
-    left: 47%;
+    left: 44%;
+  }
+  #cancelBtn {
+    top: 57%;
+    left: 8%;
+  }
+  #restartBtn {
+    top: 57%;
+    left: 51%;
+  }
+  #winIcon, #winIcon1 {
+    width: 6.5%;
+    position: inherit;
+    left: 9.7%;
   }
 }
 
@@ -876,15 +916,25 @@ a, a:visited, a:hover, a:active {
   .scoreboard-item-3 {
     left: 61.5%;
   }
-  .winning-message, .winning-message-2, .tie-message {
+  .winning-message, .winning-message-2, .tie-message, .restart-message {
     position: fixed;
     top: 38%;
     bottom: 41%;
   }
-  #big, #big-2, #big-3, #big-4 {
+  #big, #big-2 {
     position: inherit;
     top: 45%;
-    left: 21%;
+    left: 25%;
+  }
+  #big-3 {
+    position: inherit;
+    top: 43%;
+    left: 34%;
+  }
+  #big-4 {
+    position: inherit;
+    top: 40%;
+    left: 28%;
   }
   #small{
     position: relative;
@@ -896,14 +946,19 @@ a, a:visited, a:hover, a:active {
   #nextRoundBtn1, #nextRoundBtn2, #nextRoundBtn3 {
     left: 47%;
   }
-}
-
-/* For desktop devices */
-@media only screen and (min-width: 1025px) {
-  .icon img {
-    width: 20%;
+  #cancelBtn {
+    height: 23%;
+    top: 55%;
+    left: 31%;
   }
-  .solo-icon img {
-    width: 30%;
+  #restartBtn {
+    height: 23%;
+    top: 55%;
+    left: 51%;
+  }
+  #winIcon, #winIcon1 {
+    width: 5%;
+    position: inherit;
+    left: 17%;
   }
 }
