@@ -231,9 +231,61 @@ a, a:visited, a:hover, a:active {
   position: relative;
   cursor: pointer;
 }
+
+.cell:empty:not(.x):not(.circle):hover::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--mark-size) * .25);
+    height: var(--mark-size);
+    border: 2px solid #31C3BD;
+    background: #1F3641;
+    transform: translate(-50%, -50%) rotate(45deg);
+    z-index: 1;
+  }
   
+.cell:empty:not(.x):not(.circle):hover::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--mark-size) * .25);
+    height: var(--mark-size);
+    border: 2px solid #31C3BD;
+    background: #1F3641;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    z-index: 1;
+}
+
+/*.cell:empty:not(.o):not(.circle):hover::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--mark-size);
+    height: var(--mark-size);
+    border: 2px solid #F2B137;
+    background: #1F3641;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.cell:empty:not(.o):not(.circle):hover::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(var(--mark-size) * .4);
+    height: calc(var(--mark-size) * .4);
+    border: 2px solid #F2B137;
+    background: #1F3641;
+    border-radius: 50%;
+    z-index: 1;
+} */
+
 .cell.x,
-.cell.circle {
+.cell.o {
   cursor: not-allowed;
 }
 
@@ -242,17 +294,8 @@ a, a:visited, a:hover, a:active {
     background-color: #31C3BD;
 }
 
-.board.x .cell:not(.x):not(.circle):hover::before,
-.board.x .cell:not(.x):not(.circle):hover::after {
-  border: 2px solid #31C3BD;
-  background: #1F3641;
-}
-
-
 .cell.x::before,
-.cell.x::after,
-.board.x .cell:not(.x):not(.circle):hover::before,
-.board.x .cell:not(.x):not(.circle):hover::after {
+.cell.x::after {
   content: '';
   position: absolute;
   width: calc(var(--mark-size) * .25);
@@ -275,16 +318,8 @@ a, a:visited, a:hover, a:active {
   background-color: #F2B137;
 }
 
-.board.o .cell:not(.x):not(.o):hover::before,
-.board.o .cell:not(.x):not(.o):hover::after {
-  border: 2px solid #F2B137;
-  background: #1F3641;
-}
-
 .cell.o::before,
-.cell.o::after,
-.board.o .cell:not(.x):not(.o):hover::before,
-.board.o .cell:not(.x):not(.o):hover::after {
+.cell.o::after {
   content: '';
   position: absolute;
   border-radius: 50%;
@@ -293,8 +328,7 @@ a, a:visited, a:hover, a:active {
 .cell.o::before,
 .board.o .cell:not(.x):not(.o):hover::before {
   width: var(--mark-size);
-  height: var(--mark-size);
-    
+  height: var(--mark-size);   
 }
 
 .cell.o::after,

@@ -159,6 +159,8 @@ function handleCellClick() {
       }
     }
   }
+
+  
       
 function init() {
   updateScoreboard();
