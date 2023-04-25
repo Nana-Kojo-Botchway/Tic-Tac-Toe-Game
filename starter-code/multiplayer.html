@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+  <title>Frontend Mentor | Tic Tac Toe</title>
+</head>
+
+<body>
+<!-- Game board start -->
+<section class="nav-bar">
+    <div class="solo-icon">
+        <img id="cpu" src="/starter-code/assets/icon-x.svg" alt="x-icon">
+        <img id="player" src="/starter-code/assets/icon-o.svg" alt="o-icon">
+    </div>
+
+    <div class="turn-indicator" id="turnIndicator">
+        <p id="turnText"></p>
+    </div>
+      
+    <button id="redo" type="reset"><img src="/starter-code/assets/icon-restart.svg" alt="restart-icon"></button>
+
+</section>
+
+  <div class="container">
+    <div class="board show">
+      <div class="cell" onclick="makeMove(0)"></div>
+      <div class="cell" onclick="makeMove(1)"></div>
+      <div class="cell" onclick="makeMove(2)"></div>
+      <div class="cell" onclick="makeMove(3)"></div>
+      <div class="cell" onclick="makeMove(4)"></div>
+      <div class="cell" onclick="makeMove(5)"></div>
+      <div class="cell" onclick="makeMove(6)"></div>
+      <div class="cell" onclick="makeMove(7)"></div>
+      <div class="cell" onclick="makeMove(8)"></div>
+    </div>
+
+    <section class="winning-prompt">
+        <div class="darken" id="darken">
+          <div game-win-function></div>
+        </div>  
+        
+        <div class="winning-message" id="winningMessage">
+          <div data-winning-message-text></div>
+          <span id="small">player 1 wins!</span> <br>
+          <span id="big"><img id="winIcon" src="/starter-code/assets/icon-o.svg" alt="o-icon"> takes the round</span> <br>
+          <button id="quitBtn"><a href="index.html">quit</a></button>
+          <button id="nextRoundBtn1">next round</button>
+        </div>
+        
+        <div class="winning-message-2" id="winningMessage2">
+          <div data-winning-message-2-text></div>
+          <span id="small">player 2 wins!</span> <br>
+          <span id="big-2"><img id="winIcon1" src="/starter-code/assets/icon-x.svg" alt="x-icon"> takes the round</span> <br>
+          <button id="quitBtn"><a href="index.html">quit</a></button>
+          <button id="nextRoundBtn2">next round</button>
+        </div>
+        
+        <div class="tie-message" id="tieMessage">
+          <div data-tie-message-text></div>
+          <span id="big-3">round tied</span> <br>
+          <button id="quitBtn"><a href="index.html">quit</a></button>
+          <button id="nextRoundBtn3">next round</button>
+        </div>
+        
+        <div class="restart-message" id="restartMessage">
+          <div data-restart-message-text></div>
+          <span id="big-4">restart game?</span> <br>
+          <button id="cancelBtn">no, cancel</button>
+          <button id="restartBtn"><a href="index.html">yes, restart</a></button>
+        </div>        
+      </section>
+      
+    <div class="scoreboard">
+      <div class="scoreboard-item-1">
+        <h2 id="score"><strong>X (P2)</strong></h2>
+        <p id="wins">0</p>
+      </div>
+      <div class="scoreboard-item-2">
+        <h2 id="score"><strong>TIES</strong></h2>
+        <p id="ties">0</p>
+      </div>
+      <div class="scoreboard-item-3">
+        <h2 id="score"><strong>O (P1)</strong></h2>
+        <p id="losses">0</p>
+      </div>
+    </div>
+
+
+
+  <script src="multi-script.js"></script>
+  
+</body>
+</html>
