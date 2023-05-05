@@ -95,8 +95,6 @@ restartBtn.addEventListener("click", () => {
   darken.style.display = "none";
 });
 
-
-  
   document.getElementById("nextRoundBtn1").addEventListener("click", function() {
     resetBoard();
   });
@@ -138,9 +136,7 @@ function resetBoard() {
       }
     }
   }  
-
-  
-        
+       
 function init() {
   updateScoreboard();
   updateTurnIndicator();

@@ -4,6 +4,7 @@ let ties = 0;
 let losses = 0;
 
 let cells = document.getElementsByClassName("cell");
+let board = ["", "", "", "", "", "", "", "", ""];
 
 function updateScoreboard() {
   document.getElementById("wins").textContent = wins;
@@ -73,7 +74,6 @@ function endGame(result) {
     updateScoreboard();
   }
 
-// redo button functionality
 const redoButton = document.getElementById("redo");
 const restartMessage = document.getElementById("restartMessage");
 const darken = document.getElementById("darken");
@@ -98,70 +98,177 @@ restartBtn.addEventListener("click", () => {
 
 
   
-  document.getElementById("nextRoundBtn1").addEventListener("click", function() {
-    resetBoard();
+document.getElementById("nextRoundBtn1").addEventListener("click", function() {
+  resetBoard();
   });
   
-  document.getElementById("nextRoundBtn2").addEventListener("click", function() {
-    resetBoard();
+document.getElementById("nextRoundBtn2").addEventListener("click", function() {
+  resetBoard();
   });
   
-  document.getElementById("nextRoundBtn3").addEventListener("click", function() {
-    resetBoard();
+document.getElementById("nextRoundBtn3").addEventListener("click", function() {
+  resetBoard();
   });
 
 function resetBoard() {
-    for (const cell of cells) {
-      cell.textContent = "";
-      cell.classList.remove("x", "o");
-      cell.classList.remove("winning-cell");
-      cell.addEventListener("click", handleCellClick, { once: true });
-    }
+  for (const cell of cells) {
+    cell.textContent = "";
+    cell.classList.remove("x", "o");
+    cell.classList.remove("winning-cell");
+    cell.addEventListener("click", handleCellClick, { once: true });
+  }
     document.getElementById("darken").style.display = "none";
     document.getElementById("winningMessage").style.display = "none";
     document.getElementById("winningMessage2").style.display = "none";
     document.getElementById("tieMessage").style.display = "none";
-    turn = "X"; // reset the turn variable to "X"
+    turn = "X";
     updateTurnIndicator();
   }  
 
-function handleCellClick() {
-    if (this.textContent === "") {
-      this.textContent = turn;
-      this.classList.add(turn.toLowerCase());
+function checkWinningMove(player) {
+  let winningMove = null;
+  let availableCells = Array.from(cells).filter(cell => cell.textContent === "");
+  for (let i = 0; i < availableCells.length; i++) {
+    let cell = availableCells[i];
+    cell.textContent = player;
+    if (checkWin()) {
+      winningMove = cell;
+      break;
+    }
+    cell.textContent = "";
+  }
+  return winningMove;
+}
+  
+function checkBlockingMove(player) {
+  let blockingMove = null;
+  let opponent = (player === "X") ? "O" : "X";
+  let availableCells = Array.from(cells).filter(cell => cell.textContent === "");
+  
+  // Check for winning moves by opponent
+  for (let i = 0; i < availableCells.length; i++) {
+    let cell = availableCells[i];
+    cell.textContent = opponent;
+    if (checkWin()) {
+      blockingMove = cell;
+      break;
+    }
+    cell.textContent = "";
+  }
+  
+  // Check for winning moves by player
+  if (!blockingMove) {
+    for (let i = 0; i < availableCells.length; i++) {
+      let cell = availableCells[i];
+      cell.textContent = player;
       if (checkWin()) {
-        endGame(turn + " wins");
-      } else if (checkTie()) {
-        endGame("Tie");
-      } else {
-        turn = (turn === "X") ? "O" : "X";
-        updateTurnIndicator();
-        if (turn === "O") { // Computer's turn
-          let availableCells = Array.from(cells).filter(cell => cell.textContent === "");
-          if (availableCells.length > 0) {
-            // Delay the computer's move by 1 second
-            setTimeout(() => {
-              let randomIndex = Math.floor(Math.random() * availableCells.length);
-              let randomCell = availableCells[randomIndex];
-              randomCell.textContent = "O";
-              randomCell.classList.add("o");
-              if (checkWin()) {
-                endGame("O wins");
-              } else if (checkTie()) {
-                endGame("Tie");
-              } else {
-                turn = "X";
-                updateTurnIndicator();
-              }
-            }, 1000);
-          }
-        }
+        blockingMove = cell;
+        break;
+      }
+      cell.textContent = "";
+    }
+  }
+    
+  // Check for rows with two Xs and an empty cell
+  if (!blockingMove) {
+    let rows = [      [cells[0], cells[1], cells[2]],
+      [cells[3], cells[4], cells[5]],
+      [cells[6], cells[7], cells[8]],
+    ];
+    for (let i = 0; i < rows.length; i++) {
+      let row = rows[i];
+      let xCount = row.filter(cell => cell.textContent === "X").length;
+      let emptyCount = row.filter(cell => cell.textContent === "").length;
+      if (xCount === 2 && emptyCount === 1) {
+        blockingMove = row.find(cell => cell.textContent === "");
+        break;
       }
     }
   }
-
+    
+  // Check for columns with two Xs and an empty cell
+  if (!blockingMove) {
+    let columns = [      [cells[0], cells[3], cells[6]],
+      [cells[1], cells[4], cells[7]],
+      [cells[2], cells[5], cells[8]],
+    ];
+    for (let i = 0; i < columns.length; i++) {
+      let column = columns[i];
+      let xCount = column.filter(cell => cell.textContent === "X").length;
+      let emptyCount = column.filter(cell => cell.textContent === "").length;
+      if (xCount === 2 && emptyCount === 1) {
+        blockingMove = column.find(cell => cell.textContent === "");
+        break;
+      }
+    }
+  }
+    
+  // Check for diagonals with two Xs and an empty cell
+  if (!blockingMove) {
+    let diagonals = [      [cells[0], cells[4], cells[8]],
+      [cells[2], cells[4], cells[6]],
+    ];
+    for (let i = 0; i < diagonals.length; i++) {
+      let diagonal = diagonals[i];
+      let xCount = diagonal.filter(cell => cell.textContent === "X").length;
+      let emptyCount = diagonal.filter(cell => cell.textContent === "").length;
+      if (xCount === 2 && emptyCount === 1) {
+        blockingMove = diagonal.find(cell => cell.textContent === "");
+        break;
+      }
+    }
+  }
   
-      
+  return blockingMove;
+} 
+  
+function handleCellClick() {
+  if (this.textContent === "") {
+    this.textContent = turn;
+    this.classList.add(turn.toLowerCase());
+    if (checkWin()) {
+      endGame(turn + " wins");
+    } else if (checkTie()) {
+      endGame("Tie");
+    } else {
+      turn = (turn === "X") ? "O" : "X";
+      updateTurnIndicator();
+      if (turn === "O") { // Computer's turn
+        let foundWinningMove = false;
+        let foundBlockingMove = false;
+        let move;
+        let winningMove = checkWinningMove("O");
+        if (winningMove) {
+          foundWinningMove = true;
+          move = winningMove;
+        } else {
+          let blockingMove = checkBlockingMove("O");
+          if (blockingMove) {
+            foundBlockingMove = true;
+            move = blockingMove;
+          } else {
+            let availableCells = Array.from(cells).filter(cell => cell.textContent === "");
+            let randomIndex = Math.floor(Math.random() * availableCells.length);
+            move = availableCells[randomIndex];
+          }
+        }
+        setTimeout(() => {
+        move.textContent = "O";
+        move.classList.add("o");
+        if (checkWin()) {
+          endGame("O wins");
+        } else if (checkTie()) {
+          endGame("Tie");
+        } else {
+          turn = "X";
+          updateTurnIndicator();
+        }
+      }, 500);
+      }
+    }
+  }
+}
+  
 function init() {
   updateScoreboard();
   updateTurnIndicator();

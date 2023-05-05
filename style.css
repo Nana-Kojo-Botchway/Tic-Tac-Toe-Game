@@ -5,7 +5,7 @@
 
 :root {
     --cell-size: 140px;
-    --mark-size: calc(var(--cell-size) * .7);
+    --mark-size: calc(var(--cell-size) * .5);
     --shape-size: 460px;
     --winning-blocks-x: #65e9e4;
     --winning-blocks-o: #ffc860;
@@ -223,7 +223,7 @@ a, a:visited, a:hover, a:active {
   height: var(--cell-size);
   background-color: #1F3641;
   border: 10px solid #1A2A33;
-  border-radius: 15px;
+  border-radius: 20px;
   box-shadow: inset 0px -8px 0px #10212A;
   display: flex;
   justify-content: center;
@@ -232,57 +232,55 @@ a, a:visited, a:hover, a:active {
   cursor: pointer;
 }
 
-.cell:empty:not(.x):not(.circle):hover::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--mark-size) * .25);
-    height: var(--mark-size);
-    border: 2px solid #31C3BD;
-    background: #1F3641;
-    transform: translate(-50%, -50%) rotate(45deg);
-    z-index: 1;
-  }
-  
 .cell:empty:not(.x):not(.circle):hover::after {
     content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--mark-size) * .25);
-    height: var(--mark-size);
-    border: 2px solid #31C3BD;
-    background: #1F3641;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    z-index: 1;
+    top: 30%;
+    left: 28%;
+    width: 4rem;
+    height: 4rem;
+    background: url(./starter-code/assets/icon-x-outline.svg);
+    background-repeat: no-repeat;
 }
 
-/*.cell:empty:not(.o):not(.circle):hover::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--mark-size);
-    height: var(--mark-size);
-    border: 2px solid #F2B137;
-    background: #1F3641;
-    border-radius: 50%;
-    z-index: 1;
+/*
+.cell:empty:not(.o):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 28%;
+  width: 4.1rem;
+  height: 4.15rem;
+  background: url(./starter-code/assets/icon-o-outline.svg);
+  background-repeat: no-repeat;
+}
+*/
+
+
+.board.x-turn .cell:empty:not(.o):not(.circle):hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--mark-size);
+  height: var(--mark-size);
+  border: 2px solid #F2B137;
+  background: #1F3641;
+  border-radius: 50%;
+  z-index: 1;
 }
 
-.cell:empty:not(.o):not(.circle):hover::after{
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--mark-size) * .4);
-    height: calc(var(--mark-size) * .4);
-    border: 2px solid #F2B137;
-    background: #1F3641;
-    border-radius: 50%;
-    z-index: 1;
-} */
+.board.o-turn .cell:empty:not(.o):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--mark-size) * .4);
+  height: calc(var(--mark-size) * .4);
+  border: 2px solid #F2B137;
+  background: #1F3641;
+  border-radius: 50%;
+  z-index: 1;
+}
 
 .cell.x,
 .cell.o {
