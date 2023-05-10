@@ -135,7 +135,7 @@ function resetBoard() {
         updateTurnIndicator();
       }
     }
-  }  
+  } 
        
 function init() {
   updateScoreboard();
