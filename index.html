@@ -14,26 +14,111 @@
 <body>
 
   <!-- New game menu start -->
+<section id="gameMenu" class="gameMenu">
+  <div class="menu" id="menu">
+
+    <div class="icon">
+      <img src="/starter-code/assets/logo.svg" alt="logo">
+    </div>
   
-<div class="menu" id="menu">
+    <div class="big-shape">
+      <h3>Pick player 1's mark</h3>
 
-  <div class="icon">
-    <img src="/starter-code/assets/icon-x.svg" alt="x-icon">
-    <img src="/starter-code/assets/icon-o.svg" alt="o-icon">
+      <div class="mark-container">
+        <label class="labels" for="X-mark">
+        <input class="radio" type="radio" id="X-mark" name="marks" value="X" checked>
+            <span class="checkmark">
+                <svg class="Xsvg" width="64" height="64" xmlns="http://www.w3.org/2000/svg"><path class="XsvgPath" d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="hsl( var(--clr-silver) )"/>
+                </svg>
+            </span>
+    </label>
+
+    <label class="labels" for="O-mark">
+        <input class="radio" type="radio" id="O-mark" name="marks" value="O">
+            <span class="checkmark">
+                <svg class="Osvg" width="64" height="64" xmlns="http://www.w3.org/2000/svg"><path class="OsvgPAth" d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z" fill="hsl( var(--clr-silver) )"/>
+                </svg>
+            </span>
+    </label>
+    </div>  
+
+      <h4>REMEMBER: X GOES FIRST</h4>
+    </div>
+  
+    <button id="solo" onclick="newGameCPU()" data-value="">New Game (vs CPU)</button>
+    <button id="multiplayer" onclick="newGamePlayer()" data-value="">New Game (vs player)</button>
+  </div>
+</section>
+
+<!-- Game board start -->
+<section class="gameBoard" id="gameBoard">
+
+  <div class="game-board-header">
+      <img class="game-board-header-logo" src="/starter-code/assets/logo.svg" alt="logo">
+
+  <div class="turn">
+    <img id="turn" class="Xturn" src="./starter-code/assets/icon-x-turn.svg" alt="X icon" data-value="X">
+    <p id="turnText">turn</p>
+  </div>
+    
+  <button class="restart" onclick="displayModalRestart()"><img src="./starter-code/assets/icon-restart.svg" alt="restart-icon"></button>
   </div>
 
-  <div class="big-shape">
-    <h3>Pick player 1's mark</h3>
-    <button id="x-shape">X</button>
-    <button id="o-shape">O</button>
-    <h4>REMEMBER: X GOES FIRST</h4>
+  <div class="container">
+    <div class="board">
+      <div onclick="hitBox('0')" id="0" class="cell cell0 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('1')" id="1" class="cell cell1 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('2')" id="2" class="cell cell2 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('3')" id="3" class="cell cell3 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('4')" id="4" class="cell cell4 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('5')" id="5" class="cell cell5 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('6')" id="6" class="cell cell6 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('7')" id="7" class="cell cell7 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('8')" id="8" class="cell cell8 hoverClassX" data-value=""></div>
+    </div>
+
+    <div class="scoreboard">
+      <div class="cell-score your-score">
+          <p id="player1Name" class="playerName">X (You)</p>
+          <p id="Xscore" class="num">0</p>
+      </div>   
+      <div class="cell-score ties">
+          <p>Ties<br><span id="draw" class="num">0</span></p>
+      </div>
+      <div class="cell-score cpu-score">    
+          <p id="player2Name" class="playerName">O (CPU)</p>
+          <p id="Oscore" class="num">0</p>
+      </div>
   </div>
 
-  <button id="solo"><a href="solo.html"> New Game (vs CPU) </a></button>
-  <button id="multiplayer"><a href="multiplayer.html"> New Game (vs player)</a></button>
-</div>
+  <div id="modal" class="modal">
+      <div id="endGameModal" class="endGameModal">
+          <p id="winnerName" class="uppercase">Oh no, you lost...</p>
 
+          <div class="flex">
+              <img id="winner-mark" src="./starter-code/assets/icon-o.svg" alt="winner-mark">
+              <h2 id="winnerTakes" class="winnerTakes">takes the round</h2>
+          </div>
+
+          <div>
+              <button onclick="restartGame()" class="quitBtn">Quit</button>
+              <button onclick="nextRound()" class="nextBtn">Next Round</button>
+          </div>
+
+      </div>
+  
+      <div id="restartGame" class="restartGame">
+          <p class="redo">restart game?</p>
+          <div>
+              <button onclick="cancelReset()" class="cancelBtn">No, cancel</button>
+              <button onclick="restartGame()" class="restartBtn">Yes, restart</button>
+          </div>
+      </div>
+
+  </div>
+</section>
+  
   <!-- New game menu end -->
-  <script src="main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

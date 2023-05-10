@@ -14,31 +14,30 @@
 
 <body>
 <!-- Game board start -->
-<section class="nav-bar">
-    <div class="solo-icon">
-        <img id="cpu" src="/starter-code/assets/icon-x.svg" alt="x-icon">
-        <img id="player" src="/starter-code/assets/icon-o.svg" alt="o-icon">
-    </div>
+<section class="gameBoard" id="gameBoard">
 
-    <div class="turn-indicator" id="turnIndicator">
-        <p id="turnText"></p>
-    </div>
-      
-    <button id="redo" type="reset"><img src="/starter-code/assets/icon-restart.svg" alt="restart-icon"></button>
+  <div class="game-board-header">
+      <img class="game-board-header-logo" src="/starter-code/assets/logo.svg" alt="logo">
 
-</section>
+  <div class="turn">
+    <img id="turn" class="Xturn" src="./starter-code/assets/icon-x-turn.svg" alt="X icon" data-value="X">
+    <p id="turnText">turn</p>
+  </div>
+    
+  <button class="restart" onclick="displayModalRestart()"><img src="/starter-code/assets/icon-restart.svg" alt="restart-icon"></button>
+  </div>
 
   <div class="container">
     <div class="board show">
-      <div class="cell" ></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
+      <div onclick="hitBox('0')" id="0" class="cell cell0 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('1')" id="1" class="cell cell1 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('2')" id="2" class="cell cell2 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('3')" id="3" class="cell cell3 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('4')" id="4" class="cell cell4 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('5')" id="5" class="cell cell5 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('6')" id="6" class="cell cell6 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('7')" id="7" class="cell cell7 hoverClassX" data-value=""></div>
+      <div onclick="hitBox('8')" id="8" class="cell cell8 hoverClassX" data-value=""></div>
     </div>
 
     <section class="winning-prompt">
@@ -50,30 +49,46 @@
           <div data-winning-message-text></div>
           <span id="small">oh no, you lost ...</span> <br>
           <span id="big"><img id="winIcon" src="/starter-code/assets/icon-o.svg" alt="o-icon"> takes the round</span> <br>
-          <button id="quitBtn"><a href="index.html">quit</a></button>
-          <button id="nextRoundBtn1">next round</button>
+
+        <div>
+          <button id="quitBtn" onclick="restartGame()" class="quitBtn">Quit</button>
+          <button id="nextRoundBtn1" onclick="nextRound()" class="nextBtn">Next Round</button>
+        </div>
+
         </div>
         
         <div class="winning-message-2" id="winningMessage2">
           <div data-winning-message-2-text></div>
           <span id="small">you won!</span> <br>
           <span id="big-2"><img id="winIcon1" src="/starter-code/assets/icon-x.svg" alt="x-icon"> takes the round</span> <br>
-          <button id="quitBtn"><a href="index.html">quit</a></button>
-          <button id="nextRoundBtn2">next round</button>
+
+        <div>
+          <button id="quitBtn" onclick="restartGame()" class="quitBtn">Quit</button>
+          <button id="nextRoundBtn2" onclick="nextRound()" class="nextBtn">Next Round</button>
+        </div>
+
         </div>
         
         <div class="tie-message" id="tieMessage">
           <div data-tie-message-text></div>
           <span id="big-3">round tied</span> <br>
-          <button id="quitBtn"><a href="index.html">quit</a></button>
-          <button id="nextRoundBtn3">next round</button>
+
+        <div>  
+          <button id="quitBtn" onclick="restartGame()" class="quitBtn">Quit</button>
+          <button id="nextRoundBtn3" onclick="nextRound()" class="nextBtn">Next Round</button>
+        </div>  
+
         </div>
         
         <div class="restart-message" id="restartMessage">
           <div data-restart-message-text></div>
           <span id="big-4">restart game?</span> <br>
-          <button id="cancelBtn">no, cancel</button>
-          <button id="restartBtn"><a href="index.html">yes, restart</a></button>
+
+        <div>  
+          <button id="cancelBtn" onclick="cancelReset()" class="cancelBtn">No, cancel</button>
+          <button id="restartBtn" onclick="restartGame()" class="restartBtn fs-600 uppercase text-dark">Yes, restart</button>
+        </div>
+
         </div>        
       </section>
       
@@ -93,7 +108,7 @@
     </div>
 
 
-
+</section>
   <script src="script.js"></script>
   
 </body>
