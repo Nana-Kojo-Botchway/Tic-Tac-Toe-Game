@@ -33,6 +33,8 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6] // Diagonals
 ];
 
+var isAgainstCPU = false;
+
 function newGameCPU() {
   gameBoard.style.display = "initial";
   gameMenu.style.display = "none";
@@ -50,6 +52,7 @@ function newGameCPU() {
   cpuBtn.setAttribute("data-value", "active");
   playerBtn.setAttribute("data-value", "");
 
+  isAgainstCPU = true;
   cpuTurn();
 }
 
@@ -60,6 +63,8 @@ function newGamePlayer() {
   player2Name.innerHTML = "0 (P2)";
   playerBtn.setAttribute("data-value", "active");
   cpuBtn.setAttribute("data-value", "");
+
+  isAgainstCPU = false;
 }
 
 function restartGame() {
@@ -139,9 +144,9 @@ function hitBox(cell) {
   }
 }
 
-var isThereWinner = false;
-
 function checkWin(currentPlayer) {
+  let isThereWinner = false; // Move variable inside function
+
   for (some of winningCombinations) {
     const isContainedIn = (a, b) => {
       for (const v of new Set(a)) {
@@ -175,7 +180,12 @@ function checkWin(currentPlayer) {
   }
 }
 
+
 async function cpuTurn() {
+  if (!isAgainstCPU) { // if game is not against CPU, return without doing anything
+    return;
+  }
+
   if (XradioBtn.checked === true) {
     const promise = new Promise((resolve, reject) => {
       if (turn.getAttribute("data-value") === "O") {
@@ -330,7 +340,6 @@ function draw() {
 
 function nextRound() {
   var boxPlayed = document.querySelectorAll(".boxPlayed");
-
   modal.style.display = "none";
   endGame.style.display = "none";
   restartingGame.style.display = "none";
@@ -356,7 +365,6 @@ function nextRound() {
   X_pattern = [];
   O_pattern = [];
   origBoard = Array.from(Array(9).keys());
-  cpuTurn();
 }
 
 function displayModalRestart() {
@@ -373,11 +381,20 @@ function cancelReset() {
 
 //  Smart Computer Moves  //
 
-function emptySquares() {
-  return origBoard.filter((s) => typeof s == "number");
+function emptySquares(board) {
+  return board.filter((s) => typeof s == "number");
 }
 
 function checkWinner(board, player) {
+  const winningCombinations = [    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
   let plays = board.reduce((a, e, i) => (e === player ? a.concat(i) : a), []);
   let gameWon = null;
   for (let [index, win] of winningCombinations.entries()) {
@@ -390,7 +407,7 @@ function checkWinner(board, player) {
 }
 
 function minimax(newBoard, player) {
-  var availSpots = emptySquares();
+  var availSpots = emptySquares(newBoard);
 
   if (checkWinner(newBoard, human)) {
     return { score: -10 };
@@ -399,13 +416,15 @@ function minimax(newBoard, player) {
   } else if (availSpots.length === 0) {
     return { score: 0 };
   }
+  
   var moves = [];
+  
   for (var i = 0; i < availSpots.length; i++) {
     var move = {};
     move.index = newBoard[availSpots[i]];
     newBoard[availSpots[i]] = player;
 
-    if (player == AI) {
+    if (player === AI) {
       var result = minimax(newBoard, human);
       move.score = result.score;
     } else {
@@ -420,7 +439,7 @@ function minimax(newBoard, player) {
 
   var bestMove;
   if (player === AI) {
-    var bestScore = -10000;
+    var bestScore = -Infinity;
     for (var i = 0; i < moves.length; i++) {
       if (moves[i].score > bestScore) {
         bestScore = moves[i].score;
@@ -428,7 +447,7 @@ function minimax(newBoard, player) {
       }
     }
   } else {
-    var bestScore = 10000;
+    var bestScore = Infinity;
     for (var i = 0; i < moves.length; i++) {
       if (moves[i].score < bestScore) {
         bestScore = moves[i].score;
