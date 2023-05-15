@@ -1,10 +1,10 @@
 const gameBoard = document.getElementById("gameBoard");
 const gameMenu = document.getElementById("gameMenu");
-var X_pattern = [];
-var O_pattern = [];
+let X_pattern = [];
+let O_pattern = [];
 const winnerMark = document.getElementById("winner-mark");
-var turn = document.getElementById("turn");
-var allBox = document.getElementsByClassName("cell");
+let turn = document.getElementById("turn");
+let allBox = document.getElementsByClassName("cell");
 const player1Name = document.getElementById("player1Name");
 const player2Name = document.getElementById("player2Name")
 const cpuBtn = document.getElementById("solo");
@@ -23,9 +23,9 @@ const cell6 = document.getElementById("6");
 const cell7 = document.getElementById("7");
 const cell8 = document.getElementById("8");
 
-var origBoard = Array.from(Array(9).keys());
-var human;
-var AI;
+let origBoard = Array.from(Array(9).keys());
+let human;
+let AI;
 
 const winningCombinations = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
@@ -33,9 +33,9 @@ const winningCombinations = [
   [0, 4, 8], [2, 4, 6] // Diagonals
 ];
 
-var isAgainstCPU = false;
+let isAgainstCPU = false;
 
-function newGameCPU() {
+const newGameCPU = () => {
   gameBoard.style.display = "initial";
   gameMenu.style.display = "none";
   if (XradioBtn.checked === true) {
@@ -56,7 +56,7 @@ function newGameCPU() {
   cpuTurn();
 }
 
-function newGamePlayer() {
+const newGamePlayer = () => {
   gameBoard.style.display = "initial";
   gameMenu.style.display = "none";
   player1Name.innerHTML = "X (P1)";
@@ -67,18 +67,18 @@ function newGamePlayer() {
   isAgainstCPU = false;
 }
 
-function restartGame() {
+const restartGame = () => {
   window.location.reload();
 }
 
-function hitBox(cell) {
-  var boxChoice = document.getElementById(cell);
+const hitBox = (cell) => {
+  let boxChoice = document.getElementById(cell);
 
   if (boxChoice.getAttribute("data-value") !== "") {
     return;
   }
 
-  var img = document.createElement("img");
+  let img = document.createElement("img");
 
   if (turn.getAttribute("data-value") === "X") {
     img.src = "./starter-code/assets/icon-x.svg";
@@ -149,7 +149,7 @@ function hitBox(cell) {
   }
 }
 
-function checkWin(currentPlayer) {
+const checkWin = (currentPlayer) => {
   let isThereWinner = false;
 
   for (some of winningCombinations) {
@@ -186,7 +186,7 @@ function checkWin(currentPlayer) {
 }
 
 
-async function cpuTurn() {
+const cpuTurn = async() => {
   if (!isAgainstCPU) {
     return; // If the game is not against CPU, return without doing anything
   }
@@ -229,11 +229,11 @@ async function cpuTurn() {
 }
 
 
-function bestSpot() {
+const bestSpot = () => {
   return minimax(origBoard, AI).index;
 }
 
-function cpuPlay() {
+const cpuPlay = () => {
   hitBox(bestSpot());
 
   cell0.setAttribute("onclick", "hitBox('0')");
@@ -257,7 +257,7 @@ const Xscore = document.getElementById("Xscore");
 const drawScore = document.getElementById("draw");
 const Oscore = document.getElementById("Oscore");
 
-function results() {
+const results = () => {
   modal.style.display = "initial";
   endGame.style.display = "flex";
   restartingGame.style.display = "none";
@@ -323,7 +323,7 @@ function results() {
   }
 }
 
-function draw() {
+const draw = () => {
   modal.style.display = "initial";
   endGame.style.display = "flex";
   restartingGame.style.display = "none";
@@ -334,8 +334,8 @@ function draw() {
   drawScore.innerHTML++;
 }
 
-function nextRound() {
-  var boxPlayed = document.querySelectorAll(".boxPlayed");
+const nextRound = () => {
+  let boxPlayed = document.querySelectorAll(".boxPlayed");
 
   modal.style.display = "none";
   endGame.style.display = "none";
@@ -365,13 +365,13 @@ function nextRound() {
   cpuTurn();
 }
 
-function displayModalRestart() {
+const displayModalRestart = () => {
   modal.style.display = "initial";
   endGame.style.display = "none";
   restartingGame.style.display = "flex";
 }
 
-function cancelReset() {
+const cancelReset = () => {
   modal.style.display = "none";
   checkWin(O_pattern);
   checkWin(X_pattern);
@@ -379,11 +379,11 @@ function cancelReset() {
 
 //  Smart Computer Moves  //
 
-function emptySquares(board) {
+const emptySquares = (board) => {
   return board.filter((s) => typeof s == "number");
 }
 
-function checkWinner(board, player) {
+const checkWinner = (board, player) => {
   const winningCombinations = [    [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -404,8 +404,8 @@ function checkWinner(board, player) {
   return gameWon;
 }
 
-function minimax(newBoard, player) {
-  var availSpots = emptySquares(newBoard);
+const minimax = (newBoard, player) => {
+  let availSpots = emptySquares(newBoard);
 
   if (checkWinner(newBoard, human)) {
     return { score: -10 };
@@ -415,18 +415,18 @@ function minimax(newBoard, player) {
     return { score: 0 };
   }
 
-  var moves = [];
+  let moves = [];
 
-  for (var i = 0; i < availSpots.length; i++) {
-    var move = {};
+  for (let i = 0; i < availSpots.length; i++) {
+    let move = {};
     move.index = newBoard[availSpots[i]];
     newBoard[availSpots[i]] = player;
 
     if (player === AI) {
-      var result = minimax(newBoard, human);
+      let result = minimax(newBoard, human);
       move.score = result.score;
     } else {
-      var result = minimax(newBoard, AI);
+      let result = minimax(newBoard, AI);
       move.score = result.score;
     }
 
@@ -435,26 +435,26 @@ function minimax(newBoard, player) {
     moves.push(move);
   }
 
-  var bestMove;
-  var bestScore;
+  let bestMove;
+  let bestScore;
   
   if (player === AI) {
     bestScore = -Infinity;
-    for (var i = 0; i < moves.length; i++) {
+    for (let i = 0; i < moves.length; i++) {
       if (moves[i].score > bestScore) {
         bestScore = moves[i].score;
       }
     }
   } else {
     bestScore = Infinity;
-    for (var i = 0; i < moves.length; i++) {
+    for (let i = 0; i < moves.length; i++) {
       if (moves[i].score < bestScore) {
         bestScore = moves[i].score;
       }
     }
   }
   
-  var bestMoves = moves.filter(move => move.score === bestScore);
+  let bestMoves = moves.filter(move => move.score === bestScore);
   bestMove = bestMoves[Math.floor(Math.random() * bestMoves.length)];
 
   return bestMove;
