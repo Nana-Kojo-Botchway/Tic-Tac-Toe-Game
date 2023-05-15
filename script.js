@@ -209,7 +209,7 @@ async function cpuTurn() {
     });
 
     await promise;
-    setTimeout(cpuPlay, 1500);
+    setTimeout(cpuPlay, 2000);
   }
 
   if (OradioBtn.checked) {
