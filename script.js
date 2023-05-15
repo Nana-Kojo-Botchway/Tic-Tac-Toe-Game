@@ -73,6 +73,11 @@ function restartGame() {
 
 function hitBox(cell) {
   var boxChoice = document.getElementById(cell);
+
+  if (boxChoice.getAttribute("data-value") !== "") {
+    return;
+  }
+
   var img = document.createElement("img");
 
   if (turn.getAttribute("data-value") === "X") {
@@ -145,7 +150,7 @@ function hitBox(cell) {
 }
 
 function checkWin(currentPlayer) {
-  let isThereWinner = false; // Move variable inside function
+  let isThereWinner = false;
 
   for (some of winningCombinations) {
     const isContainedIn = (a, b) => {
@@ -182,55 +187,47 @@ function checkWin(currentPlayer) {
 
 
 async function cpuTurn() {
-  if (!isAgainstCPU) { // if game is not against CPU, return without doing anything
-    return;
+  if (!isAgainstCPU) {
+    return; // If the game is not against CPU, return without doing anything
   }
 
-  if (XradioBtn.checked === true) {
+  const disableCells = () => {
+    for (const cell of allBox) {
+      cell.setAttribute("onclick", "");
+    }
+  };
+
+  if (XradioBtn.checked) {
     const promise = new Promise((resolve, reject) => {
-      if (turn.getAttribute("data-value") === "O") {
-        cell0.setAttribute("onclick", "");
-        cell1.setAttribute("onclick", "");
-        cell2.setAttribute("onclick", "");
-        cell3.setAttribute("onclick", "");
-        cell4.setAttribute("onclick", "");
-        cell5.setAttribute("onclick", "");
-        cell6.setAttribute("onclick", "");
-        cell7.setAttribute("onclick", "");
-        cell8.setAttribute("onclick", "");
+      if (turn.getAttribute("data-value") === "O" || winnerX) {
+        disableCells();
         resolve();
       }
-      if (winnerX === true) {
+      if (winnerO) {
         reject();
       }
     });
-    await promise;
 
-    setTimeout(cpuPlay, 1000);
+    await promise;
+    setTimeout(cpuPlay, 1500);
   }
 
-  if (OradioBtn.checked === true) {
-    const promise = new Promise((resolve) => {
-      if (turn.getAttribute("data-value") === "X") {
-        cell0.setAttribute("onclick", "");
-        cell1.setAttribute("onclick", "");
-        cell2.setAttribute("onclick", "");
-        cell3.setAttribute("onclick", "");
-        cell4.setAttribute("onclick", "");
-        cell5.setAttribute("onclick", "");
-        cell6.setAttribute("onclick", "");
-        cell7.setAttribute("onclick", "");
-        cell8.setAttribute("onclick", "");
+  if (OradioBtn.checked) {
+    const promise = new Promise((resolve, reject) => {
+      if (turn.getAttribute("data-value") === "X" || winnerO) {
+        disableCells();
         resolve();
       }
-      if (winnerO === true) {
+      if (winnerX) {
         reject();
       }
     });
+
     await promise;
     setTimeout(cpuPlay, 1000);
   }
 }
+
 
 function bestSpot() {
   return minimax(origBoard, AI).index;
@@ -238,8 +235,6 @@ function bestSpot() {
 
 function cpuPlay() {
   hitBox(bestSpot());
-
-  
 
   cell0.setAttribute("onclick", "hitBox('0')");
   cell1.setAttribute("onclick", "hitBox('1')");
@@ -251,6 +246,7 @@ function cpuPlay() {
   cell7.setAttribute("onclick", "hitBox('7')");
   cell8.setAttribute("onclick", "hitBox('8')");
 }
+
 
 const modal = document.getElementById("modal");
 const endGame = document.getElementById("endGameModal");
@@ -340,6 +336,7 @@ function draw() {
 
 function nextRound() {
   var boxPlayed = document.querySelectorAll(".boxPlayed");
+
   modal.style.display = "none";
   endGame.style.display = "none";
   restartingGame.style.display = "none";
@@ -365,6 +362,7 @@ function nextRound() {
   X_pattern = [];
   O_pattern = [];
   origBoard = Array.from(Array(9).keys());
+  cpuTurn();
 }
 
 function displayModalRestart() {
@@ -416,9 +414,9 @@ function minimax(newBoard, player) {
   } else if (availSpots.length === 0) {
     return { score: 0 };
   }
-  
+
   var moves = [];
-  
+
   for (var i = 0; i < availSpots.length; i++) {
     var move = {};
     move.index = newBoard[availSpots[i]];
@@ -438,23 +436,26 @@ function minimax(newBoard, player) {
   }
 
   var bestMove;
+  var bestScore;
+  
   if (player === AI) {
-    var bestScore = -Infinity;
+    bestScore = -Infinity;
     for (var i = 0; i < moves.length; i++) {
       if (moves[i].score > bestScore) {
         bestScore = moves[i].score;
-        bestMove = i;
       }
     }
   } else {
-    var bestScore = Infinity;
+    bestScore = Infinity;
     for (var i = 0; i < moves.length; i++) {
       if (moves[i].score < bestScore) {
         bestScore = moves[i].score;
-        bestMove = i;
       }
     }
   }
+  
+  var bestMoves = moves.filter(move => move.score === bestScore);
+  bestMove = bestMoves[Math.floor(Math.random() * bestMoves.length)];
 
-  return moves[bestMove];
+  return bestMove;
 }
